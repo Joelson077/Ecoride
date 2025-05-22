@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoRide - Home</title>
+  <link rel="stylesheet" href="style.css"> <!-- Aqui já linka seu CSS principal -->
+  <script defer src="script.js"></script> <!-- Carrega o JS -->
+  <link rel="stylesheet" href="assets/css/home.css">
+  <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+</head>
+
+<body>
+
+  <!-- Menu -->
+  <div id="menu-container"></div> <!-- Menu vai ser injetado aqui -->
+
+  <!-- Header -->
+  <header>
+    <div class="header__container" id="home">
+      <div class="header__image">
+        <img src="assets/img/zfg752uu.png" alt="header" />
+      </div>
+
+      <div class="header__content">
+        <h2>🚗 - Partagez la route </h2>
+        <h1 class="titulo-header">Voyagez mieux ensemble</h1>
+        <p class="section__description">
+          Trouvez ou proposez une covoiturage facilement et voyagez à moindre coût. Réduisez votre impact écologique tout en partageant des moments conviviaux. Avec nous, chaque trajet devient plus simple, plus économique et plus humain.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Formulário de busca -->
+  <section class="header__form">
+    <form action="/">
+      <div class="input__group">
+        <label for="location">Où partez-vous ?</label>
+        <input type="text" name="location" id="location" placeholder="Ville de départ" />
+      </div>
+      <div class="input__group">
+        <label for="location">Où allez-vous ?</label>
+        <input type="text" name="location" id="location" placeholder="Ville d’arrivée" />
+      </div>
+      <div class="input__group">
+        <label for="start">Date de départ</label>
+        <input type="date" name="start" id="start" placeholder="Aug 16, 10:00 AM" />
+      </div>
+      <div class="input__group">
+        <label for="stop">Date de retour </label>
+        <input type="date" name="stop" id="stop" placeholder="Aug 18, 10:00 PM" />
+      </div>
+      <div class="input__group">
+        <label for="stop">Passagers</label>
+        <input type="number" name="stop" id="stop" placeholder="1" />
+      </div>
+      <a href="coivoi.html" class="btn">
+        Rechercher <i class="ri-search-line"></i>
+      </a>
+      
+    </form>
+  </section>
+
+  <!-- Como Funciona -->
+  <section class="section__container about__container" id="about">
+    <h2 class="section__header">Comment ça marche ?</h2>
+    <p class="section__description">
+      Choisissez votre départ, indiquez votre destination et réservez votre place. Nous nous occupons du reste pour un voyage économique, écologique et convivial.
+    </p>
+    <div class="about__grid">
+      <div class="about__card">
+        <span><i class="ri-map-pin-2-fill"></i><img src="assets/icon/Ico.svg" alt=""></span>
+        <h4>Choisissez l'emplacement</h4>
+        <p>
+          Choisissez parmi une variété de lieux de retrait ceux qui correspondent le mieux à vos besoins.        </p>
+        
+      </div>
+      <div class="about__card">
+        <span><i class="ri-calendar-event-fill"> <img src="assets/icon/Icon.svg"alt=""></i></span>
+        <h4>Date de prise en charge</h4>
+        <p>
+         Choisissez la date et l'heure exactes de votre voyage
+
+        </p>
+      </div>
+      <div class="about__card">
+        <span><i class="ri-roadster-fill"><img src="assets/icon/mdi_car.svg" alt=""></i></span>
+        <h4>Et cherche le meilleur voyage</h4>
+        <p>
+          Choisissez le pilote que vous aimez le plus
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Por que escolher a EcoRide -->
+  <section class="choose__container" id="choose">
+    <div class="choose__image">
+      <img src="assets/img/about.png" alt="choose" />
+    </div>
+    <div class="choose__content">
+      <h2 class="section__header">Pourquoi nous choisir ?</h2>
+      <p class="section__description">
+        Ecoride vous offre une solution économique, écologique et conviviale pour vos trajets. Partagez vos déplacements, réduisez votre empreinte carbone et rencontrez des personnes qui partagent vos valeurs. Faites partie de la révolution verte avec Ecoride 
+      </p>
+      <div class="choose__grid">
+        <div class="choose__card">
+          <span><i class="ri-customer-service-line"></i><img src="Icones/Group.svg" alt=""></span>
+          <div>
+            <h4>Service Client Exceptionnel</h4>
+            <p>Notre équipe est disponible 24/7 pour répondre à toutes vos questions et garantir une expérience sans souci, du début à la fin.</p>
+          </div>
+        </div>
+        <div class="choose__card">
+          <span><i class="ri-map-pin-line"></i><img src="Icones/ion_options-sharp.svg" alt=""></span>
+          <div>
+            <h4>Options Flexibles</h4>
+            <p>
+              Choisissez le véhicule qui vous convient le mieux et bénéficiez de conditions de réservation flexibles adaptées à vos besoins.
+            </p>
+          </div>
+        </div>
+        <div class="choose__card">
+          <span><i class="ri-wallet-line"></i><img src="Icones/Group-2.svg" alt=""></span>
+          <div>
+            <h4>Réduction de l'Empreinte Carbone</h4>
+            <p> En partageant vos trajets, vous réduisez votre impact environnemental tout en contribuant à un avenir plus vert et durable.</p>
+          </div>
+        </div>
+        <div class="choose__card">
+          <span><i class="ri-user-star-line"></i><img src="Icones/Vector-1.svg" alt=""></span>
+          <div>
+            <h4>Sécurité Garantie</h4>
+            <p> Nos véhicules sont soigneusement entretenus et régulièrement inspectés pour garantir votre sécurité pendant chaque trajet.</p>
+          </div>
+        </div>
+        <div class="choose__card">
+          <span><i class="ri-verified-badge-line"></i><img src="Icones/Group-1.svg" alt=""></span>
+          <div>
+            <h4>Communauté Conviviale</h4>
+            <p> Rejoignez une communauté de voyageurs qui partagent les mêmes valeurs de respect, de convivialité et de solidarité.</p>
+          </div>
+        </div>
+        <div class="choose__card">
+          <span><i class="ri-calendar-close-line"></i><img src="Icones/Vector.svg" alt=""></span>
+          <div>
+            <h4>Meilleur Prix</h4>
+            <p>Ecoride vous garantit un rapport qualité-prix imbattable pour tous vos trajets.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="section__container footer__container">
+      <div class="logo-footer">
+        <img src="assets/icon/black-and-white-automotive-logo-10.png" alt="logo">
+      </div>
+      <div class="footer__col">
+        <h4>Our Services</h4>
+        <ul class="footer__links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="connexion.html">Connexion</a></li>
+          <li><a href="coivoi.html">covoiturage</a></li>
+          <li><a href="#client">contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h4>Mentions legales</h4>
+        <ul class="footer__links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="">About</a></li>
+          <li><a href="#deals">Rental Deals</a></li>
+          <li><a href="#choose">Why Choose Us</a></li>
+          <li><a href="#client">Testimonials</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Contact</h4>
+        <ul class="footer__links">
+          <li>
+            <a href="#">
+              <span><i class="ri-phone-fill"></i></span> +91 0987654321
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span><i class="ri-map-pin-fill"></i></span> New Delhi, India
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span><i class="ri-mail-fill"></i></span> info@carrental
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bar">
+      Copyright © 2024 Web Design Mastery. All rights reserved.
+    </div>
+  </footer>
+
+</body>
+</html>

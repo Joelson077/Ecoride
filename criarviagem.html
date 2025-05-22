@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoRide - Criar Viagem</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="assets/css/criarviagem.css">
+  <script defer src="script.js"></script>
+</head>
+<style>
+  
+</style>
+<body>
+
+  <div class="create-trip">
+    <h2>Créer un nouveau voyage</h2>
+    <form id="formViagem">
+      <label for="departure">Adresse de départ :</label>
+      <input type="text" id="departure" required />
+
+      <label for="destination">Adresse de destination :</label>
+      <input type="text" id="destination" required />
+
+      <label for="price">Prix ​​(en crédits):</label>
+      <input type="number" id="price" required />
+
+      <label for="seats">Nombre de places disponibles :</label>
+      <input type="number" id="seats" required />
+
+      <label for="date">Date et heure de départ :</label>
+      <input type="datetime-local" id="date" required />
+
+      <label for="car">Sélectionnez la voiture :</label>
+      <select id="car" required></select>
+
+      <button type="submit">Créer un voyage</button>
+    </form>
+  </div>
+
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("formViagem");
+      const veiculoSelect = document.getElementById("car");
+      const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+      if (!usuario) {
+        alert("Você precisa estar logado.");
+        window.location.href = "login.html";
+        return;
+      }
+
+      // Buscar veículos
+      fetch("listar_veiculos.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ motorista_id: usuario.id })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === "sucesso") {
+          data.veiculos.forEach(v => {
+            const option = document.createElement("option");
+            option.value = v.id;
+            option.textContent = `${v.marca} ${v.modelo} - ${v.placa}`;
+            veiculoSelect.appendChild(option);
+          });
+        } else {
+          alert("Erro ao carregar veículos: " + data.mensagem);
+        }
+      });
+
+      // Submeter formulário
+      form.addEventListener("submit", e => {
+        e.preventDefault();
+
+        const dados = {
+          motorista_id: usuario.id,
+          partida: document.getElementById("departure").value,
+          chegada: document.getElementById("destination").value,
+          preco: parseInt(document.getElementById("price").value),
+          lugares_disponiveis: parseInt(document.getElementById("seats").value),
+          data_partida: document.getElementById("date").value,
+          veiculo_id: parseInt(document.getElementById("car").value)
+        };
+
+        fetch("cadastrar_viagem.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(dados)
+        })
+        .then(res => res.json())
+        .then(res => {
+          if (res.status === "sucesso") {
+            alert("Viagem criada com sucesso!");
+            window.location.href = "dashboard_motorista.html";
+          } else {
+            alert("Erro: " + res.mensagem);
+          }
+        })
+        .catch(err => {
+          console.error("Erro:", err);
+          alert("Erro ao criar viagem.");
+        });
+      });
+    });
+  </script>
+</body>
+</html>

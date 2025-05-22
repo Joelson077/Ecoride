@@ -1,0 +1,43 @@
+.user-space {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h2, h3 {
+    text-align: center;
+}
+
+.roles {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+button {
+    padding: 12px 20px;
+    font-size: 1.1em;
+    cursor: pointer;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+.preferences {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+select, input[type="checkbox"] {
+    margin-top: 5px;
+}

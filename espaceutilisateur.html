@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoRide - Home</title>
+  <link rel="stylesheet" href="style.css"> <!-- Aqui já linka seu CSS principal -->
+  <script defer src="script.js"></script> <!-- Carrega o JS -->
+  <link rel="stylesheet" href="assets/css/espaceuti.css">
+</head>
+<body>
+  <div id="menu-container"></div> <!-- Menu vai ser injetado aqui -->
+
+  <!-- Página do Espaço do Usuário -->
+<div class="user-space">
+    <h2>Bienvenue</h2>
+    <h3>Choisissez votre rôle :</h3>
+
+    <div class="roles">
+        <button id="chauffeur">Je suis chauffeur</button>
+        <button id="passager">Je suis un passager</button>
+        <button id="both">Je suis chauffeur et passager</button>
+    </div>
+</div>
+<script>
+  document.getElementById("chauffeur").addEventListener("click", () => {
+    window.location.href = "espace-connexion-chafeur.html"; // nome da página do formulário de veículo
+  });
+
+  document.getElementById("both").addEventListener("click", () => {
+    window.location.href = "espace-connexion-chafeur.html"; // mesma página de cadastro de motorista
+  });
+
+  document.getElementById("passager").addEventListener("click", () => {
+    alert("Vous avez choisi d’être passager. Aucune donnée supplémentaire n'est requise.");
+    window.location.href = "home.html"; // ou outra página como lista de viagens
+  });
+</script>
+
+</body>
+</html>

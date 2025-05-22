@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoRide - Mes Voyages</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background: #f4f7f6;
+    }
+
+    .sidebar {
+      width: 240px;
+      background:  #1e293b;
+      color: white;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .sidebar h2 {
+      font-size: 26px;
+      color: #79d853;
+      margin-bottom: 20px;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 10px;
+      border-radius: 10px;
+      transition: background 0.3s;
+    }
+
+    .sidebar a:hover {
+      background: #3a5f4b;
+    }
+
+    .content {
+      flex: 1;
+      padding: 40px;
+    }
+
+    .content h1 {
+      font-size: 26px;
+      margin-bottom: 20px;
+      color: #2d4739;
+    }
+
+    .viagem {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      margin-bottom: 20px;
+    }
+
+    .viagem p {
+      margin-bottom: 8px;
+      color: #444;
+    }
+
+    .viagem button {
+      background: #79d853;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .viagem button:hover {
+      background: #65c142;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>EcoRide</h2>
+    <a href="dashboard_motorista.html"><i class="fas fa-home"></i> Tableau de bord</a>
+    <a href="viagens_motorista.html" class="active"><i class="fas fa-car"></i> historique des covoiturages</a>
+    <a href="criar_viagem.html"><i class="fas fa-plus-circle"></i> Créer un trajet</a>
+    <a href="home.html"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+  </div>
+
+  <div class="content">
+    <h1>Mes trajets</h1>
+    <div id="listaViagens"></div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const usuario = JSON.parse(localStorage.getItem("usuario"));
+      const lista = document.getElementById("listaViagens");
+
+      if (!usuario) {
+        alert("Vous devez être connecté.");
+        window.location.href = "espace-connexion-chafeur.html";
+        return;
+      }
+
+      fetch("listar_viagens_motorista.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ motorista_id: usuario.id })
+      })
+      .then(res => res.json())
+      .then(res => {
+        if (res.status === "sucesso") {
+          if (res.viagens.length === 0) {
+            lista.innerHTML = "<p>Vous n'avez pas encore créé de trajets.</p>";
+            return;
+          }
+
+          res.viagens.forEach(viagem => {
+            const div = document.createElement("div");
+            div.className = "viagem";
+
+            let statusMsg = "";
+            let button = "";
+
+            if (viagem.status === "pendente") {
+              statusMsg = `<span style="color: orange;"><strong>Statut :</strong> En attente</span>`;
+              button = `<button onclick="iniciarViagem(${viagem.id})">Démarrer le trajet</button>`;
+            } else if (viagem.status === "em_andamento") {
+              statusMsg = `<span style="color: blue;"><strong>Statut :</strong> En cours</span>`;
+              button = `<button onclick="finalizarViagem(${viagem.id})">Arrivée à destination</button>`;
+            } else if (viagem.status === "finalizada") {
+              statusMsg = `<span style="color: red;"><strong>Statut :</strong> Terminé</span>`;
+            }
+
+            div.innerHTML = `
+              <p><strong>Départ :</strong> ${viagem.partida}</p>
+              <p><strong>Arrivée :</strong> ${viagem.chegada}</p>
+              <p><strong>Date :</strong> ${new Date(viagem.data_partida).toLocaleString()}</p>
+              <p><strong>Prix :</strong> ${viagem.preco} crédits</p>
+              <p><strong>Places disponibles :</strong> ${viagem.lugares_disponiveis}</p>
+              <p>${statusMsg}</p>
+              ${button}
+            `;
+
+            lista.appendChild(div);
+          });
+        } else {
+          alert("Erreur lors de la récupération des trajets : " + res.mensagem);
+        }
+      })
+      .catch(err => {
+        console.error("Erreur :", err);
+        alert("Erreur lors du chargement des trajets.");
+      });
+    });
+
+    function iniciarViagem(id) {
+      fetch("iniciar_viagem.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ viagem_id: id })
+      })
+      .then(res => res.json())
+      .then(res => {
+        if (res.status === "sucesso") {
+          alert("Trajet démarré !");
+          location.reload();
+        } else {
+          alert("Erreur : " + res.mensagem);
+        }
+      });
+    }
+
+    function finalizarViagem(id) {
+      fetch("finalizar_viagem.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ viagem_id: id })
+      })
+      .then(res => res.json())
+      .then(res => {
+        if (res.status === "sucesso") {
+          alert("Trajet terminé ! Les passagers doivent confirmer.");
+          location.reload();
+        } else {
+          alert("Erreur : " + res.mensagem);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

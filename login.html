@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoRide - Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<style>
+  body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #4CAF50, #2E7D32);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.tela-login {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.tela-login h1 {
+  margin-bottom: 30px;
+  color: #2E7D32;
+}
+
+.tela-login input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.tela-login button {
+  width: 100%;
+  padding: 12px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.tela-login button:hover {
+  background-color: #388E3C;
+}
+
+.tela-login p {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #555;
+}
+
+.tela-login a {
+  color: #2E7D32;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.tela-login a:hover {
+  text-decoration: underline;
+}
+
+</style>
+<body>
+  <div class="tela-login">
+    <h1>Login</h1>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="senha" placeholder="password" required>
+    <button id="loginBtn">Entrer</button>
+    <p>Vous n'avez pas de compte ?<a href="connexion.html">Créer un compte</a></p>
+  </div>
+
+  <script>
+    document.getElementById("loginBtn").addEventListener("click", () => {
+      const email = document.getElementById("email").value.trim();
+      const senha = document.getElementById("senha").value.trim();
+      const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+      if (!usuario || usuario.email !== email || usuario.senha !== senha) {
+        alert("Email ou senha incorretos.");
+        return;
+      }
+
+      alert("Login bem-sucedido!");
+      localStorage.setItem("usuario", JSON.stringify(usuario));
+
+      const voltar = localStorage.getItem("voltarPara");
+      if (localStorage.getItem("querParticipar") === "true" && voltar) {
+        window.location.href = voltar;
+      } else {
+        window.location.href = "espaceutilisateur.html";
+      }
+    });
+  </script>
+</body>
+</html>

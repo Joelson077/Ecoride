@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Avaliação da Viagem | EcoRide</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    label {
+      font-weight: 500;
+      display: block;
+      margin: 15px 0 5px;
+      color: #555;
+    }
+
+    select, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .sucesso {
+      margin-top: 15px;
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Avalie sua viagem</h2>
+
+  <label for="nota">Nota:</label>
+  <select id="nota">
+    <option value="">Selecione uma nota</option>
+    <option value="5">⭐️⭐️⭐️⭐️⭐️ (5)</option>
+    <option value="4">⭐️⭐️⭐️⭐️ (4)</option>
+    <option value="3">⭐️⭐️⭐️ (3)</option>
+    <option value="2">⭐️⭐️ (2)</option>
+    <option value="1">⭐️ (1)</option>
+  </select>
+
+  <label for="comentario">Comentário:</label>
+  <textarea id="comentario" placeholder="Escreva o que achou da viagem..."></textarea>
+
+  <button onclick="enviarAvaliacao()">Enviar Avaliação</button>
+
+  <div id="mensagem" class="sucesso" style="display:none;">Avaliação enviada com sucesso!</div>
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const viagem_id = params.get('viagem_id');
+  const passageiro_id = params.get('passageiro_id');
+
+  if (!viagem_id || !passageiro_id) {
+    alert("Link inválido.");
+    document.body.innerHTML = "<h3 style='color:red;'>Parâmetros ausentes.</h3>";
+  }
+
+  function enviarAvaliacao() {
+    const nota = document.getElementById('nota').value;
+    const comentario = document.getElementById('comentario').value;
+
+    if (!nota) {
+      alert("Por favor, selecione uma nota.");
+      return;
+    }
+
+    fetch("avaliar_viagem.php", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        viagem_id,
+        passageiro_id,
+        nota,
+        comentario
+      })
+    }).then(res => res.json())
+      .then(data => {
+        if (data.status === "ok") {
+          document.getElementById("mensagem").style.display = "block";
+          setTimeout(() => {
+            window.location.href = "home.html";
+          }, 2000);
+        } else {
+          alert("Erro ao enviar avaliação.");
+        }
+      });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Painel do Funcionário | EcoRide</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f2f5;
+      color: #333;
+      padding: 20px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      color: #2E7D32;
+    }
+
+    .content {
+      background: white;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+
+    .table-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 14px 18px;
+      text-align: left;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+      font-size: 16px;
+    }
+
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+
+    .actions button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      margin-right: 6px;
+    }
+
+    .btn-approve {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .btn-approve:hover {
+      background-color: #45a049;
+    }
+
+    .btn-reject {
+      background-color: #f44336;
+      color: white;
+    }
+
+    .btn-reject:hover {
+      background-color: #e53935;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 30px;
+      font-style: italic;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>🛠 Painel do Funcionário</h1>
+    <div>
+      <strong>Bem-vindo ao sistema EcoRide</strong>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nota</th>
+            <th>Comentário</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="avaliacoes-body">
+          <tr><td colspan="4" class="empty">Carregando avaliações...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    async function carregarAvaliacoes() {
+      try {
+        const response = await fetch("listar_avaliacoes_pendentes.php");
+        const data = await response.json();
+        const tbody = document.getElementById("avaliacoes-body");
+        tbody.innerHTML = "";
+
+        if (!data.length) {
+          tbody.innerHTML = '<tr><td colspan="4" class="empty">Nenhuma avaliação pendente.</td></tr>';
+          return;
+        }
+
+        data.forEach(avaliacao => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${avaliacao.id}</td>
+            <td>${avaliacao.nota}</td>
+            <td>${avaliacao.comentario}</td>
+            <td class="actions">
+              <button class="btn-approve" onclick="atualizar(${avaliacao.id}, 'aprovada')">✔ Aprovar</button>
+              <button class="btn-reject" onclick="atualizar(${avaliacao.id}, 'rejeitada')">✖ Rejeitar</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (error) {
+        console.error("Erro ao carregar avaliações:", error);
+        document.getElementById("avaliacoes-body").innerHTML = '<tr><td colspan="4" class="empty">Erro ao carregar dados.</td></tr>';
+      }
+    }
+
+    async function atualizar(id, status) {
+      try {
+        await fetch("atualizar_status_avaliacao.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id, status })
+        });
+        carregarAvaliacoes();
+      } catch (error) {
+        console.error("Erro ao atualizar status:", error);
+      }
+    }
+
+    carregarAvaliacoes();
+  </script>
+
+</body>
+</html>

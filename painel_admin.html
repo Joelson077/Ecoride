@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel do Administrador | EcoRide</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --primary: #2E7D32;
+      --secondary: #4CAF50;
+      --bg: #f4f6f9;
+      --card-bg: #ffffff;
+      --text-dark: #1e1e1e;
+      --text-light: #777;
+      --radius: 16px;
+      --shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      padding: 40px;
+      color: var(--text-dark);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      background: var(--primary);
+      color: white;
+      padding: 20px 30px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    header h1 {
+      font-size: 28px;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 25px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+    }
+
+    .card h2 {
+      font-size: 18px;
+      color: var(--text-light);
+      margin-bottom: 8px;
+    }
+
+    .stat {
+      font-size: 30px;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .charts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    canvas {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    section.users {
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    section.users h2 {
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 16px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background-color: var(--secondary);
+      color: white;
+      font-size: 15px;
+    }
+
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+
+    @media (max-width: 768px) {
+      .charts {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>📊 Painel do Administrador</h1>
+  <span>Bem-vindo, Admin</span>
+</header>
+
+<section class="dashboard">
+  <div class="card">
+    <h2>Total de Créditos</h2>
+    <div class="stat" id="totalCreditos">0</div>
+  </div>
+  <div class="card">
+    <h2>Total de Viagens</h2>
+    <div class="stat" id="totalViagens">0</div>
+  </div>
+</section>
+
+<section class="charts">
+  <canvas id="graficoViagens"></canvas>
+  <canvas id="graficoCreditos"></canvas>
+</section>
+
+<section class="users">
+  <h2>Usuários Cadastrados</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Créditos</th>
+      </tr>
+    </thead>
+    <tbody id="tabelaUsuarios">
+      <tr><td colspan="4" style="text-align:center; padding: 20px;">Carregando...</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<script>
+async function carregarDashboard() {
+  const res = await fetch("dados_graficos.php");
+  const data = await res.json();
+
+  document.getElementById("totalCreditos").textContent = data.total_creditos;
+  document.getElementById("totalViagens").textContent = data.total_viagens;
+
+  new Chart(document.getElementById('graficoViagens'), {
+    type: 'bar',
+    data: {
+      labels: data.viagens_por_dia.map(v => v.dia),
+      datasets: [{
+        label: 'Viagens por Dia',
+        data: data.viagens_por_dia.map(v => v.total),
+        borderWidth: 1,
+        backgroundColor: '#4CAF50'
+      }]
+    },
+    options: { responsive: true, plugins: { legend: { display: false } } }
+  });
+
+  new Chart(document.getElementById('graficoCreditos'), {
+    type: 'line',
+    data: {
+      labels: data.creditos_por_dia.map(c => c.dia),
+      datasets: [{
+        label: 'Créditos por Dia',
+        data: data.creditos_por_dia.map(c => c.total),
+        fill: true,
+        tension: 0.3,
+        borderColor: '#2E7D32',
+        backgroundColor: 'rgba(76, 175, 80, 0.2)'
+      }]
+    },
+    options: { responsive: true, plugins: { legend: { display: false } } }
+  });
+}
+
+async function carregarUsuarios() {
+  const res = await fetch("listar_usuarios.php");
+  const usuarios = await res.json();
+  const tbody = document.getElementById("tabelaUsuarios");
+  tbody.innerHTML = "";
+  usuarios.forEach(user => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${user.id}</td><td>${user.nome}</td><td>${user.email}</td><td>${user.creditos}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+carregarDashboard();
+carregarUsuarios();
+</script>
+
+</body>
+</html>

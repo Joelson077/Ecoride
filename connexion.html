@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EcoRide - Cadastro</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<style>
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #4CAF50, #2E7D32);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.tela-login {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.tela-login h1 {
+  margin-bottom: 30px;
+  color: #2E7D32;
+}
+
+.tela-login input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.tela-login button {
+  width: 100%;
+  padding: 12px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.tela-login button:hover {
+  background-color: #388E3C;
+}
+
+.tela-login p {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #555;
+}
+
+.tela-login a {
+  color: #2E7D32;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.tela-login a:hover {
+  text-decoration: underline;
+}
+
+</style>
+
+<body>
+  <form class="tela-login" id="cadastroForm">
+    <h1>Connexion</h1>
+    <input type="text" name="nome" class="nome" placeholder="Prénom" required />
+    <input type="text" name="sobrenome" class="prenom" placeholder="Nom" required />
+    <input type="email" name="email" class="email" placeholder="Email" required />
+    <input type="password" name="senha" class="senha" placeholder="Password" required />
+    <button type="submit" id="criarConta">Créer un compte</button>
+    <p>vous avez déjà un compte <a href="login.html">Entrer</a></p>
+  </form>
+
+  <!-- Modal de Participação (caso necessário) -->
+  <div id="modalParticipar" style="display:none;">
+    <p>Vous souhaitez participer au covoiturage ?</p>
+    <button id="confirmarParticipacao">OUI</button>
+    <button id="cancelarParticipacao">Annuler</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('cadastroForm');
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const nome = document.querySelector('.nome').value.trim();
+        const sobrenome = document.querySelector('.prenom').value.trim();
+        const email = document.querySelector('.email').value.trim();
+        const senha = document.querySelector('.senha').value;
+
+        fetch('cadastro.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: `nome=${encodeURIComponent(nome)}&sobrenome=${encodeURIComponent(sobrenome)}&email=${encodeURIComponent(email)}&senha=${encodeURIComponent(senha)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === "sucesso") {
+            alert("Compte créé avec succès !");
+            const usuario = {
+              id: data.id,
+              nome: data.nome,
+              sobrenome: data.sobrenome,
+              email: data.email,
+              creditos: data.creditos,
+              minhasViagens: []
+            };
+            localStorage.setItem("usuario", JSON.stringify(usuario));
+            window.location.href = "details.html";
+          } else {
+            alert("Erro: " + data.mensagem);
+          }
+        })
+        .catch(error => {
+          alert("Erreur lors de la création du compte. Veuillez réessayer.");
+          console.error("Erro:", error);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

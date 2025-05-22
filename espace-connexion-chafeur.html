@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoRide - Inscription - chafeur</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #4CAF50, #2E7D32);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .tela-login {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .tela-login h1 {
+      margin-bottom: 30px;
+      color: #2E7D32;
+    }
+
+    .tela-login input,
+    .tela-login select,
+    .tela-login textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .tela-login button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .tela-login button:hover {
+      background-color: #388E3C;
+    }
+
+    .tela-login p {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .tela-login a {
+      color: #2E7D32;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .tela-login a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="tela-login">
+    <h1>S'inscrire</h1>
+    <div class="nome-prenom-container" style="display: flex; gap: 10px;">
+      <input type="text" placeholder="Nom" class="nome">
+      <input type="text" placeholder="Prénom" class="prenom">
+    </div>
+    <input type="text" placeholder="Email">
+    <input type="password" placeholder="Mot de passe">
+    <input type="text" class="placa" placeholder="Plaque d'immatriculation" required>
+    <input type="text" class="data-imma" placeholder="Date de première immatriculation" required>
+    <input list="lista-marques" placeholder="Marque" class="marque">
+    <datalist id="lista-marques">
+      <option value="Renault">
+      <option value="Peugeot">
+      <option value="Citroën">
+      <option value="Toyota">
+      <option value="Volkswagen">
+    </datalist>
+    <input type="text" class="modelo" placeholder="Modèle">
+    <input list="lista-cores" placeholder="Couleur" class="color">
+    <datalist id="lista-cores">
+      <option value="Noir">
+      <option value="Blanc">
+      <option value="Rouge">
+      <option value="Bleu">
+      <option value="Gris">
+    </datalist>
+    <select class="energia">
+      <option value="">Type d'énergie</option>
+      <option value="Électrique">Électrique</option>
+      <option value="Essence">Essence</option>
+      <option value="Diesel">Diesel</option>
+      <option value="Hybride">Hybride</option>
+    </select>
+    <input type="file" class="foto" accept="image/*" required>
+
+    <select class="portes">
+      <option value="">N° de Portes</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+    <textarea placeholder="Préférences du conducteur" class="Preferences"></textarea>
+    <button type="button" id="submitBtn">S'inscrire</button>
+    <p>Vous avez déjà un compte ? <a href="login_chafeur.html">Entrer</a></p>
+  </div>
+
+  <script>
+    document.getElementById("submitBtn").addEventListener("click", () => {
+      const usuario = JSON.parse(localStorage.getItem("usuario"));
+      if (!usuario) {
+        alert("Vous devez être connecté.");
+        return;
+      }
+
+      const foto = document.querySelector(".foto").files[0];
+      if (!foto) {
+        alert("Veuillez ajouter une photo.");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("motorista_id", usuario.id);
+      formData.append("marca", document.querySelector(".marque").value);
+      formData.append("modelo", document.querySelector(".modelo").value);
+      formData.append("cor", document.querySelector(".color").value);
+      formData.append("placa", document.querySelector(".placa").value);
+      formData.append("data_primeira_immatriculation", document.querySelector(".data-imma").value);
+      formData.append("preferencias", document.querySelector(".Preferences").value);
+      formData.append("tipo_energia", document.querySelector(".energia").value);
+      formData.append("foto", foto);
+
+      fetch("cadastrar_veiculo.php", {
+        method: "POST",
+        body: formData
+      })
+      .then(res => res.json())
+      .then(res => {
+        if (res.status === "sucesso") {
+          alert("Véhicule enregistré avec succès !");
+          window.location.href = "dashboard_motorista.html";
+        } else {
+          alert("Erreur : " + res.mensagem);
+        }
+      })
+      .catch(err => {
+        console.error("Erreur:", err);
+        alert("Erreur lors de l'envoi des données.");
+      });
+    });
+  </script>
+</body>
+</html>

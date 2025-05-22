@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Confirmação da Viagem | EcoRide</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    p {
+      font-size: 16px;
+      color: #555;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 10px 5px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      transition: 0.2s ease;
+    }
+
+    .ok {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .problema {
+      background-color: #f44336;
+      color: white;
+    }
+
+    .ok:hover {
+      background-color: #45a049;
+    }
+
+    .problema:hover {
+      background-color: #e53935;
+    }
+
+    #formProblema {
+      display: none;
+      margin-top: 20px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      resize: none;
+      font-family: inherit;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Confirmação da Viagem</h2>
+  <p>A viagem foi finalizada. Correu tudo bem?</p>
+
+  <button class="ok" onclick="confirmar('ok')">✅ Sim, tudo correu bem</button>
+  <button class="problema" onclick="mostrarComentario()">❌ Não, houve um problema</button>
+
+  <div id="formProblema">
+    <textarea id="comentario" placeholder="Descreva o problema..."></textarea>
+    <button class="problema" onclick="confirmar('problema')">Enviar</button>
+  </div>
+</div>
+
+<script>
+  const viagem_id = localStorage.getItem('viagem_id'); // já deve estar salvo ao clicar no card
+  const passageiro_id = localStorage.getItem('usuario_id'); // idem
+
+  function mostrarComentario() {
+    document.getElementById('formProblema').style.display = 'block';
+  }
+
+  function confirmar(tipo) {
+    const comentario = document.getElementById('comentario')?.value || "";
+    
+    fetch('salvar_confirmacao.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        viagem_id,
+        passageiro_id,
+        confirmacao: tipo,
+        comentario
+      })
+    }).then(res => res.json())
+      .then(data => {
+        if (data.status === 'ok') {
+          alert('Resposta registrada com sucesso!');
+          window.location.href = 'index.html'; // ou redireciona para o histórico, etc
+        } else {
+          alert('Erro ao salvar confirmação.');
+        }
+      });
+  }
+</script>
+
+</body>
+</html>

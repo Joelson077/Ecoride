@@ -1,0 +1,455 @@
+/* Resetando margens e preenchimentos */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Definindo as variáveis de cores e tamanhos */
+:root {
+  --primary-color: #79D853;
+  --primary-color-dark: #2e2a40;
+  --text-dark: #221e36;
+  --text-light: #767268;
+  --extra-light: #f1f2ff;
+  --white: #ffffff;
+  --max-width: 1200px;
+}
+
+/* Estilo das imagens */
+img {
+  display: flex;
+  width: 100%;
+}
+
+/* Definindo o estilo global da página */
+body {
+  scroll-behavior: smooth;
+  font-family: "Roboto", sans-serif;
+}
+
+/* Estilos para o header */
+header {
+  background: linear-gradient(
+    to bottom,
+    rgba(25, 255, 79, 0),
+    rgba(145, 240, 121, 0.1)
+  );
+}
+
+/* Container principal do header */
+.header__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap; /* Responsividade */
+  padding-top: 5rem;
+  gap: 2rem;
+  max-width: var(--max-width);
+  margin: auto;
+}
+
+/* Estilos para o conteúdo do header */
+.header__content {
+  flex: 1;
+  order: 1;
+  padding-block: 2rem 5rem;
+  padding-inline: 1rem;
+}
+
+/* Estilos para a imagem no header */
+.header__image {
+  flex: 1;
+  order: 2;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+/* Efeito de sobreposição da imagem no header */
+.header__image::before {
+  position: absolute;
+  content: "";
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 5rem;
+  background-color: #79D853;
+  opacity: 0.7;
+  border-top-left-radius: 2rem;
+  z-index: -1;
+}
+
+/* Estilos para o título e subtítulo no header */
+.header__content h2 {
+  width: fit-content;
+  margin-inline: auto;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--primary-color);
+  background-color: var(--white);
+  border-radius: 5rem;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.05);
+}
+
+.header__content h1 {
+  margin-bottom: 2rem;
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  text-align: center;
+}
+
+/* Estilos do formulário de busca no header */
+.header__form form {
+  max-width: 1000px;
+  margin-inline: auto;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background-color: var(--white);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  position: relative;
+  bottom: 45px;
+}
+
+.header__form .input__group {
+  flex: 1 0 50px;
+  display: grid;
+  gap: 8px;
+}
+
+.header__form label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.header__form input {
+  width: 100%;
+  outline: none;
+  border: none;
+  font-size: 1rem;
+  color: var(--text-light);
+}
+
+.header__form input::placeholder {
+  color: var(--text-light);
+}
+
+.header__form .btn {
+  display: inline-block;
+  padding: 15px 17px;
+  width: 20%;
+  background-color: #79D853;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+
+/* Estilos das seções sobre o serviço */
+.section__container {
+  height: 530px;
+}
+
+.about__container {
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.about__container .section__description {
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+}
+
+.about__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 2rem 1rem;
+}
+
+.about__card {
+  background-color: var(--white);
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.about__card:hover {
+  transform: translateY(-5px);
+}
+
+.about__card span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  padding: 1rem;
+  border-radius: 50%;
+  background-color: var(--extra-light);
+}
+
+.about__card h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-dark);
+}
+
+.about__card p {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  line-height: 1.4rem;
+}
+
+
+.section__header {
+  top: 80px;
+  text-align: center;
+  padding: 10px;
+}
+
+/* Estilos para a seção "Why choose us" */
+.choose__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 colunas para o layout */
+  gap: 2rem; /* Espaçamento entre as colunas */
+  align-items: start;
+  background-color: #79d85314;
+}
+
+.choose__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centraliza verticalmente */
+  align-items: flex-start; /* Alinha à esquerda */
+  height: 100%; /* Certifique-se de que o container tenha altura total */
+  padding: 2rem 1rem;
+}
+
+.choose__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Duas colunas, uma ao lado da outra */
+  gap: 2rem 1rem; /* Espaçamento entre as colunas e as linhas */
+}
+
+.choose__card {
+  display: flex;
+  flex-direction: column; /* Cards agora serão empilhados verticalmente */
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: var(--light-background); /* Pode ser uma cor de fundo suave */
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.choose__card:hover {
+  transform: translateY(-5px); /* Efeito de hover */
+}
+
+.choose__card span {
+  padding: 10px;
+  background-color: var(--extra-light);
+  color: var(--primary-color);
+  border-radius: 50%;
+  font-size: 1.5rem;
+}
+
+.choose__card h4 {
+  margin-bottom: 5px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.choose__card p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  line-height: 1.5rem;
+}
+
+.choose__image {
+  width: 100%;
+  margin-top: 300px; /* Espaço para mover a imagem para mais embaixo */
+}
+
+/* Estilos principais do footer */
+.footer {
+  background-color: var(--primary-color-dark);
+  padding: 2rem 0;
+}
+
+.footer__container {
+  height: 100%;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(1, 1fr);
+  padding: 50px 1rem;
+  background-color: var(--primary-color-dark);
+}
+
+
+/* Responsividade: duas colunas acima de 540px */
+@media (min-width: 540px) {
+  .footer__container {
+    grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+  }
+}
+
+/* Responsividade: quatro colunas acima de 1024px */
+@media (min-width: 1024px) {
+  .footer__container {
+    grid-template-columns: repeat(4, 1fr); /* 4 colunas */
+  }
+}
+
+.footer__col {
+  color: var(--extra-light);
+}
+
+.footer__col h4 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--white);
+}
+
+.footer__links {
+  display: grid;
+  gap: 1rem;
+}
+
+.footer__links a {
+  color: var(--extra-light);
+}
+
+.footer__links a:hover {
+  color: var(--primary-color);
+}
+
+.footer__links span {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 4px 6px;
+  border: 1px solid var(--extra-light);
+  border-radius: 100%;
+}
+
+.footer__links a:hover span {
+  border-color: var(--primary-color);
+}
+
+/* Barra de copyright */
+.footer__bar {
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: var(--extra-light);
+  text-align: center;
+}
+
+/* RESPONSIVO GERAL PARA TELAS MENORES QUE 768px */
+@media (max-width: 768px) {
+  .header__container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .header__content h1 {
+    font-size: 2.2rem;
+  }
+
+  .header__form form {
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .header__form .btn {
+    width: 100%;
+  }
+
+  .about__grid {
+    flex-direction: column;
+    padding: 2rem;
+  }
+
+  .choose__container {
+    grid-template-columns: 1fr;
+    padding: 2rem 1rem;
+  }
+
+  .choose__image {
+    margin-top: 0;
+  }
+
+  .choose__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .choose__card {
+    width: 100%;
+  }
+
+  .footer__container {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .footer__col {
+    text-align: center;
+  }
+}
+
+/* Responsivo para telas muito pequenas (ex: 360px a 480px) */
+@media (max-width: 480px) {
+  .choose__image {
+  width: 100%;
+  margin-top: 300px; /* Espaço para mover a imagem para mais embaixo */
+}
+.header__container {
+  display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+ .header__form form {
+    flex-direction: column;
+  }
+
+  .header__content h1 {
+    font-size: 1.8rem;
+  }
+
+  .header__form input {
+    font-size: 0.9rem;
+  }
+
+  .choose__card p,
+  .choose__card h4 {
+    font-size: 0.9rem;
+  }
+
+  .about__card h4 {
+    font-size: 1rem;
+  }
+
+  .section__description {
+    font-size: 0.9rem;
+    padding: 0 1rem;
+  }
+}
