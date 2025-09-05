@@ -1,14 +1,12 @@
 <?php
 $host = 'localhost';
-$db = 'ecoride';
 $user = 'root';
-$pass = '';
-$charset = 'utf8mb4';
+$pass = ''; // sem senha
+$db   = 'ecoride'; // substitua se seu banco tiver outro nome
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$db;charset=$charset", $user, $pass);
-} catch (PDOException $e) {
-    echo 'Erro na conexão: ' . $e->getMessage();
-    exit;
+$conn = new mysqli($host, $user, $pass, $db);
+
+if ($conn->connect_error) {
+    die("Erro de conexão: " . $conn->connect_error);
 }
 ?>

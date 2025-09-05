@@ -1,16 +1,13 @@
 <?php
-$host = "localhost";
-$user = "root";
-$pass = "";
-$dbname = "test";
+$host = 'localhost';
+$user = 'root';
+$pass = '';
+$db   = 'ecoride'; // troque pelo nome do seu banco, se necessário
 
-$conn = new mysqli($host, $user, $pass, $dbname);
+$conn = new mysqli($host, $user, $pass, $db);
 
 if ($conn->connect_error) {
-    die("Erro na conexão: " . $conn->connect_error);
-} else {
-    echo "Conexão bem-sucedida!";
+    die("❌ Erro de conexão: " . $conn->connect_error);
 }
-
-$conn->close();
+echo "✅ Conectado com sucesso ao banco local!";
 ?>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Painel do Administrador | EcoRide</title>
+  <title>Tableau de bord Administrateur | EcoRide</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     :root {
@@ -137,17 +137,17 @@
 <body>
 
 <header>
-  <h1>📊 Painel do Administrador</h1>
-  <span>Bem-vindo, Admin</span>
+  <h1>📊 Tableau de bord Administrateur</h1>
+  <span>Bienvenue, Admin</span>
 </header>
 
 <section class="dashboard">
   <div class="card">
-    <h2>Total de Créditos</h2>
+    <h2>Total des Crédits</h2>
     <div class="stat" id="totalCreditos">0</div>
   </div>
   <div class="card">
-    <h2>Total de Viagens</h2>
+    <h2>Total des Trajets</h2>
     <div class="stat" id="totalViagens">0</div>
   </div>
 </section>
@@ -158,18 +158,18 @@
 </section>
 
 <section class="users">
-  <h2>Usuários Cadastrados</h2>
+  <h2>Utilisateurs Enregistrés</h2>
   <table>
     <thead>
       <tr>
         <th>ID</th>
-        <th>Nome</th>
+        <th>Nom</th>
         <th>Email</th>
-        <th>Créditos</th>
+        <th>Crédits</th>
       </tr>
     </thead>
     <tbody id="tabelaUsuarios">
-      <tr><td colspan="4" style="text-align:center; padding: 20px;">Carregando...</td></tr>
+      <tr><td colspan="4" style="text-align:center; padding: 20px;">Chargement...</td></tr>
     </tbody>
   </table>
 </section>
@@ -187,7 +187,7 @@ async function carregarDashboard() {
     data: {
       labels: data.viagens_por_dia.map(v => v.dia),
       datasets: [{
-        label: 'Viagens por Dia',
+        label: 'Trajets par jour',
         data: data.viagens_por_dia.map(v => v.total),
         borderWidth: 1,
         backgroundColor: '#4CAF50'
@@ -201,7 +201,7 @@ async function carregarDashboard() {
     data: {
       labels: data.creditos_por_dia.map(c => c.dia),
       datasets: [{
-        label: 'Créditos por Dia',
+        label: 'Crédits par jour',
         data: data.creditos_por_dia.map(c => c.total),
         fill: true,
         tension: 0.3,

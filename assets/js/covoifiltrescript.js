@@ -42,17 +42,20 @@ document.addEventListener("DOMContentLoaded", () => {
       const card = document.createElement("div");
       card.classList.add("ride-card");
       card.innerHTML = `
-        <img src="${fotoPath}" alt="Foto do motorista" class="driver-photo">
-        <div class="ride-info">
-          <h3>${viagem.motorista} <span class="rating">${viagem.nota ?? 'N/A'}⭐</span></h3>
-          <p class="available-seats">Lugares restantes: <span class="seats">${viagem.lugares_disponiveis}</span></p>
-          <p class="price">Preço: ${viagem.preco}€</p>
-          <p>Partida: ${viagem.partida}</p>
-          <p>Chegada: ${viagem.chegada}</p>
-          <p class="${viagem.eco ? 'eco' : 'non-eco'}">${viagem.eco ? 'Viagem ecológica 🌱' : 'Não ecológica ❌'}</p>
-          <button class="detalhes-btn">Detalhes</button>
-        </div>
-      `;
+  <img src="${fotoPath}" alt="Photo du conducteur" class="driver-photo">
+  <div class="ride-info">
+    <h3>${viagem.motorista} <span class="rating">${viagem.nota ?? 'N/A'}⭐</span></h3>
+    <p class="available-seats">Places disponibles : <span class="seats">${viagem.lugares_disponiveis}</span></p>
+    <p class="price">Prix : ${viagem.preco}€</p>
+    <p><strong>Départ :</strong> ${viagem.partida}</p>
+    <p><strong>Arrivée :</strong> ${viagem.chegada}</p>
+    <p class="${viagem.eco ? 'eco' : 'non-eco'}">
+      ${viagem.eco ? 'Trajet écologique 🌱' : 'Trajet non écologique ❌'}
+    </p>
+    <button class="detalhes-btn">Détails</button>
+  </div>
+`;
+
 
       // Clique no botão ou card inteiro
       card.addEventListener("click", () => {

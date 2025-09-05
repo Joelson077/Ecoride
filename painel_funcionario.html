@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Painel do Funcionário | EcoRide</title>
+  <title>Tableau de bord Employé | EcoRide</title>
   <style>
     * {
       box-sizing: border-box;
@@ -101,9 +101,9 @@
 <body>
 
   <div class="header">
-    <h1>🛠 Painel do Funcionário</h1>
+    <h1>🛠 Tableau de bord Employé</h1>
     <div>
-      <strong>Bem-vindo ao sistema EcoRide</strong>
+      <strong>Bienvenue dans le système EcoRide</strong>
     </div>
   </div>
 
@@ -113,13 +113,13 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Nota</th>
-            <th>Comentário</th>
-            <th>Ações</th>
+            <th>Note</th>
+            <th>Commentaire</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody id="avaliacoes-body">
-          <tr><td colspan="4" class="empty">Carregando avaliações...</td></tr>
+          <tr><td colspan="4" class="empty">Chargement des avis...</td></tr>
         </tbody>
       </table>
     </div>
@@ -134,7 +134,7 @@
         tbody.innerHTML = "";
 
         if (!data.length) {
-          tbody.innerHTML = '<tr><td colspan="4" class="empty">Nenhuma avaliação pendente.</td></tr>';
+          tbody.innerHTML = '<tr><td colspan="4" class="empty">Aucun avis en attente.</td></tr>';
           return;
         }
 
@@ -145,15 +145,15 @@
             <td>${avaliacao.nota}</td>
             <td>${avaliacao.comentario}</td>
             <td class="actions">
-              <button class="btn-approve" onclick="atualizar(${avaliacao.id}, 'aprovada')">✔ Aprovar</button>
-              <button class="btn-reject" onclick="atualizar(${avaliacao.id}, 'rejeitada')">✖ Rejeitar</button>
+              <button class="btn-approve" onclick="atualizar(${avaliacao.id}, 'aprovada')">✔ Approuver</button>
+              <button class="btn-reject" onclick="atualizar(${avaliacao.id}, 'rejeitada')">✖ Rejeter</button>
             </td>
           `;
           tbody.appendChild(tr);
         });
       } catch (error) {
         console.error("Erro ao carregar avaliações:", error);
-        document.getElementById("avaliacoes-body").innerHTML = '<tr><td colspan="4" class="empty">Erro ao carregar dados.</td></tr>';
+        document.getElementById("avaliacoes-body").innerHTML = '<tr><td colspan="4" class="empty">Erreur lors du chargement des données.</td></tr>';
       }
     }
 

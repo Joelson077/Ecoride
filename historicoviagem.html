@@ -12,7 +12,7 @@
   <div id="menu-container"></div>
 
   <div class="history">
-    <h2>Histórico de Covoiturages</h2>
+    <h2>Histoire du covoiturage</h2>
     <div id="listaViagens"></div> <!-- Viagens serão inseridas aqui -->
   </div>
 
@@ -22,7 +22,7 @@
     const container = document.getElementById("listaViagens");
 
     if (!usuario) {
-      alert("Você precisa estar logado.");
+      alert("Vous devez être connecté.");
       window.location.href = "login.html";
       return;
     }
@@ -36,7 +36,7 @@
     .then(res => {
       if (res.status === "sucesso") {
         if (res.viagens.length === 0) {
-          container.innerHTML = "<p>Você ainda não participou de nenhum covoiturage.</p>";
+          container.innerHTML = "<p>Vous n'avez encore participé à aucun covoiturage.</p>";
           return;
         }
 
@@ -45,28 +45,28 @@
           div.className = "trip";
 
           div.innerHTML = `
-            <p><strong>Partida:</strong> ${viagem.partida}</p>
-            <p><strong>Destino:</strong> ${viagem.chegada}</p>
-            <p><strong>Data:</strong> ${new Date(viagem.data_partida).toLocaleString()}</p>
-            <button onclick="cancelarViagem(${viagem.id})">Cancelar</button>
+            <p><strong>Depart:</strong> ${viagem.partida}</p>
+            <p><strong>Destination:</strong> ${viagem.chegada}</p>
+            <p><strong>Date:</strong> ${new Date(viagem.data_partida).toLocaleString()}</p>
+            <button onclick="cancelarViagem(${viagem.id})">Annuler</button>
           `;
 
           container.appendChild(div);
         });
       } else {
-        alert("Erro ao buscar histórico: " + res.mensagem);
+        alert("Erreur lors de la récupération de l'historique: " + res.mensagem);
       }
     })
     .catch(err => {
       console.error("Erro:", err);
-      alert("Erro ao carregar histórico.");
+      alert("Erreur lors du chargement de l'historique.");
     });
   });
 
   function cancelarViagem(id) {
     const usuario = JSON.parse(localStorage.getItem("usuario"));
 
-    if (confirm("Tem certeza que deseja cancelar esta viagem?")) {
+    if (confirm("Êtes-vous sûr de vouloir annuler ce voyage ?")) {
       fetch("cancelar_participacao.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -81,12 +81,12 @@
           alert(res.mensagem);
           window.location.reload(); // Recarrega a página para atualizar o histórico
         } else {
-          alert("Erro ao cancelar: " + res.mensagem);
+          alert("Erreur lors de l'annulation : " + res.mensagem);
         }
       })
       .catch(err => {
         console.error("Erro:", err);
-        alert("Erro na requisição de cancelamento.");
+        alert("Erreur dans la demande d'annulation.");
       });
     }
   }

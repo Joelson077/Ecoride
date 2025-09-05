@@ -4,12 +4,69 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EcoRide - Home</title>
-  <link rel="stylesheet" href="style.css"> <!-- Aqui já linka seu CSS principal -->
-  <script defer src="script.js"></script> <!-- Carrega o JS -->
+  <link rel="stylesheet" href="style.css"> <!-- CSS principal -->
+  <script defer src="script.js"></script> <!-- JS principal -->
+
+  <style>
+    /* Estilo específico para a seção de contato */
+    .contact-card {
+      background-color: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      width: 100%;
+      max-width: 500px;
+      margin: 80px auto;
+      text-align: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .contact-card h2 {
+      color: #2d3436;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .contact-card p {
+      color: #636e72;
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    .contact-card a {
+      text-decoration: none;
+      font-weight: bold;
+      color: #0984e3;
+      transition: color 0.3s ease;
+    }
+
+    .contact-card a:hover {
+      color: #2d98da;
+    }
+
+    .icon {
+      font-size: 22px;
+      margin-right: 8px;
+      color: #0984e3;
+    }
+
+    body {
+      background: #f0f4f8;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
 </head>
 <body>
-  <div id="menu-container"></div> <!-- Menu vai ser injetado aqui -->
+  <div id="menu-container"></div> <!-- Menu será injetado via JS -->
 
-  
+  <!-- Seção de Contato -->
+  <div class="contact-card">
+    <h2>Contactez-nous</h2>
+    <p><span class="icon">👤</span><strong>Nom :</strong> Joelson Rita</p>
+    <p><span class="icon">📧</span><strong>Email :</strong> <a href="mailto:joelsonrita6@gmail.com">joelsonrita6@gmail.com</a></p>
+    <p><span class="icon">📱</span><strong>Téléphone :</strong> <a href="tel:+33745305051">07 45 30 50 51</a></p>
+  </div>
+
 </body>
 </html>

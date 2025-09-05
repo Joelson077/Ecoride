@@ -1,17 +1,11 @@
 <?php
 // Conexão com o banco de dados
-$host = "localhost";
-$user = "root";
-$pass = "";
-$dbname = "ecoride";
+require_once 'db.php';
 
-$conn = new mysqli($host, $user, $pass, $dbname);
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
-// Verificar conexão
-if ($conn->connect_error) {
-    echo json_encode(["status" => "erro", "mensagem" => "Erro na conexão com o banco de dados: " . $conn->connect_error]);
-    exit();
-}
+
 
 // Coletar dados do formulário
 $nome = isset($_POST['nome']) ? trim($_POST['nome']) : '';

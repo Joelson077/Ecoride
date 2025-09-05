@@ -66,12 +66,12 @@
 <body>
 
 <div class="form-container">
-  <h2>Cadastrar Administrador</h2>
+  <h2>Créer un compte administrateur</h2>
   <form onsubmit="cadastrar(event)">
-    <input type="text" id="nome" placeholder="Nome" required>
+    <input type="text" id="nome" placeholder="Nom" required>
     <input type="email" id="email" placeholder="E-mail" required>
-    <input type="password" id="senha" placeholder="Senha" required>
-    <button type="submit">Cadastrar</button>
+    <input type="password" id="senha" placeholder="Passaword" required>
+    <button type="submit">Créer</button>
     <div id="mensagem" class="mensagem"></div>
   </form>
 </div>
@@ -93,8 +93,14 @@ function cadastrar(e) {
   .then(data => {
     const msg = document.getElementById('mensagem');
     if (data.status === "ok") {
-      msg.textContent = "Administrador cadastrado com sucesso!";
+      msg.textContent = "Administrateur enregistré avec succès !";
       msg.className = "mensagem sucesso";
+
+      // Aguarda 1 segundo e redireciona
+      setTimeout(() => {
+        window.location.href = "painel_admin.html";
+      }, 1000);
+
     } else {
       msg.textContent = "Erro: " + data.mensagem;
       msg.className = "mensagem erro";
@@ -102,6 +108,7 @@ function cadastrar(e) {
   });
 }
 </script>
+
 
 </body>
 </html>

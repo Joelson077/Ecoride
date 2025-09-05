@@ -1,15 +1,6 @@
 <?php
-header("Content-Type: application/json");
-$host = "localhost";
-$user = "root";
-$pass = "";
-$dbname = "ecoride";
+require_once 'db.php';
 
-$conn = new mysqli($host, $user, $pass, $dbname);
-if ($conn->connect_error) {
-    echo json_encode(["status" => "erro", "mensagem" => "Erreur de connexion."]);
-    exit();
-}
 
 $data = json_decode(file_get_contents("php://input"), true);
 $email = $data['email'] ?? '';

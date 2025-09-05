@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EcoRide - Detalhes</title>
+  <title>EcoRide - Détails</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="assets/css/details.css">
   <script src="script.js"></script>
@@ -12,117 +12,32 @@
   <div id="menu-container"></div>
 
   <div class="covoiturage-details">
-    <h1>Detalhes do Covoiturage</h1>
+    <h1>Détails du covoiturage</h1>
 
     <div class="car-info">
-      <!-- Conteúdo preenchido via JavaScript -->
+      <!-- Rempli dynamiquement par JavaScript -->
     </div>
 
     <div class="driver-preferences">
-      <h3>Preferências do Motorista</h3>
-      <p><strong>Fumante:</strong> Não</p>
-      <p><strong>Animais:</strong> Não</p>
+      <h3>Préférences du conducteur</h3>
+      <p><strong>Fumeur :</strong> Non</p>
+      <p><strong>Animaux :</strong> Non</p>
     </div>
 
-    <button id="participateBtn">Participar</button>
+    <button id="participateBtn">Participer</button>
   </div>
 
-  <!-- Modal de Confirmação -->
+  <!-- Modal de confirmation -->
   <div id="confirmationModal" class="modal" style="display:none;">
     <div class="modal-content">
       <span class="close-btn">&times;</span>
-      <h2>Confirme sua Participação</h2>
-      <p>Você realmente quer utilizar <span id="creditValue">20</span> créditos?</p>
-      <button id="confirmBtn">Confirmar</button>
-      <button id="cancelBtn">Cancelar</button>
+      <h2>Confirmez votre participation</h2>
+      <p>Voulez-vous vraiment utiliser <span id="creditValue">20</span> crédits ?</p>
+      <button id="confirmBtn">Confirmer</button>
+      <button id="cancelBtn">Annuler</button>
     </div>
   </div>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const dados = JSON.parse(localStorage.getItem("detalhesViagem"));
-      let usuario = JSON.parse(localStorage.getItem("usuario"));
-      const participateBtn = document.getElementById("participateBtn");
-      const modal = document.getElementById("confirmationModal");
-      const confirmBtn = document.getElementById("confirmBtn");
-      const cancelBtn = document.getElementById("cancelBtn");
-      const closeBtn = document.querySelector(".close-btn");
-
-      if (!dados) {
-        alert("Detalhes da viagem não encontrados.");
-        return;
-      }
-
-      // Preenche os dados na tela
-      document.querySelector(".car-info").innerHTML = `
-        <img src="assets/img/car3.jpg" alt="Carro do Motorista" class="car-image">
-        <p><strong>Motorista:</strong> ${dados.motorista}</p>
-        <p><strong>Avaliação:</strong> ${dados.nota}/5</p>
-        <p><strong>Lugares Disponíveis:</strong> <span id="availableSeats">${dados.lugaresRestantes}</span></p>
-        <p><strong>Preço:</strong> <span id="price">${dados.preco}</span> Créditos</p>
-      `;
-
-      // Botão participar
-      participateBtn.addEventListener("click", () => {
-        if (!usuario) {
-          localStorage.setItem("querParticipar", "true");
-          localStorage.setItem("voltarPara", location.pathname);
-          window.location.href = "login.html";
-          return;
-        }
-
-        if (dados.lugaresRestantes <= 0) {
-          alert("Não há mais lugares disponíveis.");
-          return;
-        }
-
-        if (usuario.creditos < dados.preco) {
-          alert("Você não tem créditos suficientes.");
-          return;
-        }
-
-        document.getElementById("creditValue").textContent = dados.preco;
-        modal.style.display = "block";
-      });
-
-      // Modal pós-login
-      if (usuario && localStorage.getItem("querParticipar") === "true") {
-        localStorage.removeItem("querParticipar");
-        localStorage.removeItem("voltarPara");
-        if (dados.lugaresRestantes > 0 && usuario.creditos >= dados.preco) {
-          document.getElementById("creditValue").textContent = dados.preco;
-          modal.style.display = "block";
-        }
-      }
-
-      confirmBtn.addEventListener("click", () => {
-        usuario.creditos -= dados.preco;
-
-        if (!usuario.minhasViagens) usuario.minhasViagens = [];
-
-        usuario.minhasViagens.push({
-          id: dados.id || Date.now(), // Caso não tenha ID salvo
-          motorista: dados.motorista,
-          preco: dados.preco
-        });
-
-        dados.lugaresRestantes -= 1;
-
-        localStorage.setItem("usuario", JSON.stringify(usuario));
-        localStorage.setItem("detalhesViagem", JSON.stringify(dados));
-
-        // Atualiza o número de lugares na tela
-        document.getElementById("availableSeats").textContent = dados.lugaresRestantes;
-
-        modal.style.display = "none";
-        alert("Participação confirmada com sucesso!");
-      });
-
-      cancelBtn.addEventListener("click", () => modal.style.display = "none");
-      closeBtn.addEventListener("click", () => modal.style.display = "none");
-    });
-  </script>
   <script src="assets/js/details.js"></script>
-
 </body>
 </html>

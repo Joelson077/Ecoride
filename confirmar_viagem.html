@@ -83,15 +83,15 @@
 <body>
 
 <div class="container">
-  <h2>Confirmação da Viagem</h2>
-  <p>A viagem foi finalizada. Correu tudo bem?</p>
+  <h2>Confirmation de voyage</h2>
+  <p>Le voyage est terminé. Tout s'est bien passé ?</p>
 
-  <button class="ok" onclick="confirmar('ok')">✅ Sim, tudo correu bem</button>
-  <button class="problema" onclick="mostrarComentario()">❌ Não, houve um problema</button>
+  <button class="ok" onclick="confirmar('ok')">✅ Oui, tout s'est bien passé</button>
+  <button class="problema" onclick="mostrarComentario()">❌ Non, il y a eu un problème</button>
 
   <div id="formProblema">
-    <textarea id="comentario" placeholder="Descreva o problema..."></textarea>
-    <button class="problema" onclick="confirmar('problema')">Enviar</button>
+    <textarea id="comentario" placeholder="Décrivez le problème..."></textarea>
+    <button class="problema" onclick="confirmar('problema')">Envoyer</button>
   </div>
 </div>
 
@@ -118,7 +118,7 @@
     }).then(res => res.json())
       .then(data => {
         if (data.status === 'ok') {
-          alert('Resposta registrada com sucesso!');
+          alert('Réponse enregistrée avec succès !');
           window.location.href = 'index.html'; // ou redireciona para o histórico, etc
         } else {
           alert('Erro ao salvar confirmação.');

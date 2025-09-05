@@ -45,8 +45,8 @@
       const usuario = JSON.parse(localStorage.getItem("usuario"));
 
       if (!usuario) {
-        alert("Você precisa estar logado.");
-        window.location.href = "login.html";
+        alert("Vous devez être connecté.");
+        window.location.href = "espace-connexion-chafeur.html";
         return;
       }
 
@@ -66,7 +66,7 @@
             veiculoSelect.appendChild(option);
           });
         } else {
-          alert("Erro ao carregar veículos: " + data.mensagem);
+          alert("Erreur lors du chargement des véhicules : " + data.mensagem);
         }
       });
 
@@ -92,7 +92,7 @@
         .then(res => res.json())
         .then(res => {
           if (res.status === "sucesso") {
-            alert("Viagem criada com sucesso!");
+            alert("Voyage créé avec succès !");
             window.location.href = "dashboard_motorista.html";
           } else {
             alert("Erro: " + res.mensagem);
@@ -100,7 +100,7 @@
         })
         .catch(err => {
           console.error("Erro:", err);
-          alert("Erro ao criar viagem.");
+          alert("Erreur lors de la création du voyage.");
         });
       });
     });

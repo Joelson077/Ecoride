@@ -2,7 +2,7 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Avaliação da Viagem | EcoRide</title>
+  <title>Avis de voyage | EcoRide</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -71,11 +71,11 @@
 <body>
 
 <div class="container">
-  <h2>Avalie sua viagem</h2>
+  <h2>Évaluez votre voyage</h2>
 
-  <label for="nota">Nota:</label>
+  <label for="nota">Note:</label>
   <select id="nota">
-    <option value="">Selecione uma nota</option>
+    <option value="">Sélectionnez une note</option>
     <option value="5">⭐️⭐️⭐️⭐️⭐️ (5)</option>
     <option value="4">⭐️⭐️⭐️⭐️ (4)</option>
     <option value="3">⭐️⭐️⭐️ (3)</option>
@@ -83,12 +83,12 @@
     <option value="1">⭐️ (1)</option>
   </select>
 
-  <label for="comentario">Comentário:</label>
-  <textarea id="comentario" placeholder="Escreva o que achou da viagem..."></textarea>
+  <label for="comentario">Commentaire:</label>
+  <textarea id="comentario" placeholder="Écrivez ce que vous avez pensé du voyage..."></textarea>
 
-  <button onclick="enviarAvaliacao()">Enviar Avaliação</button>
+  <button onclick="enviarAvaliacao()">Soumettre un avis</button>
 
-  <div id="mensagem" class="sucesso" style="display:none;">Avaliação enviada com sucesso!</div>
+  <div id="mensagem" class="sucesso" style="display:none;">Avis envoyé avec succès !</div>
 </div>
 
 <script>
@@ -106,7 +106,7 @@
     const comentario = document.getElementById('comentario').value;
 
     if (!nota) {
-      alert("Por favor, selecione uma nota.");
+      alert("Veuillez sélectionner une note.");
       return;
     }
 
@@ -127,7 +127,7 @@
             window.location.href = "home.html";
           }, 2000);
         } else {
-          alert("Erro ao enviar avaliação.");
+          alert("Erreur lors de l'envoi de l'avis.");
         }
       });
   }

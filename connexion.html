@@ -73,7 +73,6 @@ body {
 .tela-login a:hover {
   text-decoration: underline;
 }
-
 </style>
 
 <body>
@@ -106,10 +105,15 @@ body {
         const email = document.querySelector('.email').value.trim();
         const senha = document.querySelector('.senha').value;
 
+        const formData = new FormData();
+        formData.append("nome", nome);
+        formData.append("sobrenome", sobrenome);
+        formData.append("email", email);
+        formData.append("senha", senha);
+
         fetch('cadastro.php', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: `nome=${encodeURIComponent(nome)}&sobrenome=${encodeURIComponent(sobrenome)}&email=${encodeURIComponent(email)}&senha=${encodeURIComponent(senha)}`
+          body: formData
         })
         .then(response => response.json())
         .then(data => {

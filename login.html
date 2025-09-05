@@ -90,11 +90,11 @@
       const usuario = JSON.parse(localStorage.getItem("usuario"));
 
       if (!usuario || usuario.email !== email || usuario.senha !== senha) {
-        alert("Email ou senha incorretos.");
+        alert("Email ou mot de passe incorrect.");
         return;
       }
 
-      alert("Login bem-sucedido!");
+      alert("Connexion réussie !");
       localStorage.setItem("usuario", JSON.stringify(usuario));
 
       const voltar = localStorage.getItem("voltarPara");

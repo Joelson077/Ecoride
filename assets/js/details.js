@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeBtn = document.querySelector(".close-btn");
 
   if (!dados || !dados.id) {
-    alert("Detalhes da viagem não encontrados ou ID ausente.");
+    alert("Les détails du voyage n'ont pas été trouvés ou l'identifiant est manquant.");
     return;
   }
 
@@ -18,11 +18,11 @@ document.addEventListener("DOMContentLoaded", () => {
     : `uploads/${dados.foto ?? "default.jpg"}`;
 
   document.querySelector(".car-info").innerHTML = `
-    <img src="${fotoPath}" alt="Foto do Motorista" class="car-image">
-    <p><strong>Motorista:</strong> ${dados.motorista}</p>
-    <p><strong>Avaliação:</strong> ${dados.nota}/5</p>
-    <p><strong>Lugares Disponíveis:</strong> <span id="availableSeats">${dados.lugaresRestantes}</span></p>
-    <p><strong>Preço:</strong> <span id="creditValue">${dados.preco}</span> Créditos</p>
+    <img src="${fotoPath}" alt="Photo du conducteur" class="car-image">
+    <p><strong>Conducteur :</strong> ${dados.motorista}</p>
+    <p><strong>Note :</strong> ${dados.nota}/5</p>
+    <p><strong>Places disponibles :</strong> <span id="availableSeats">${dados.lugaresRestantes}</span></p>
+    <p><strong>Prix :</strong> <span id="creditValue">${dados.preco}</span> crédits</p>
   `;
 
   participateBtn.addEventListener("click", () => {
@@ -34,12 +34,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (dados.lugaresRestantes <= 0) {
-      alert("Não há mais lugares disponíveis.");
+      alert("Il n'y a plus de places disponibles.");
       return;
     }
 
     if (usuario.creditos < dados.preco) {
-      alert("Você não tem créditos suficientes.");
+      alert("Vous n'avez pas assez de crédits.");
       return;
     }
 
@@ -57,11 +57,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   confirmBtn.addEventListener("click", () => {
-    // DEBUG dos dados enviados
-    console.log("Enviando participação:", {
-      usuario_id: usuario.id,
-      viagem_id: dados.id,
-      creditos: dados.preco
+    console.log("Envoi de la participation :", {
+      utilisateur_id: usuario.id,
+      voyage_id: dados.id,
+      credits: dados.preco
     });
 
     fetch("registrar_participacao.php", {
@@ -76,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(res => res.json())
     .then(res => {
       if (res.status === "sucesso") {
-        // Atualiza localStorage
         usuario.creditos -= dados.preco;
         dados.lugaresRestantes -= 1;
 
@@ -84,16 +82,16 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("detalhesViagem", JSON.stringify(dados));
         document.getElementById("availableSeats").textContent = dados.lugaresRestantes;
 
-        alert("Participação confirmada!");
+        alert("Participation confirmée avec succès !");
         modal.style.display = "none";
         window.location.href = "historicoviagem.html";
       } else {
-        alert("Erro: " + res.mensagem);
+        alert("Erreur : " + res.mensagem);
       }
     })
     .catch(err => {
-      console.error("Erro ao registrar participação:", err);
-      alert("Erro ao registrar participação.");
+      console.error("Erreur lors de l'enregistrement de la participation :", err);
+      alert("Erreur lors de l'enregistrement de la participation.");
     });
   });
 
