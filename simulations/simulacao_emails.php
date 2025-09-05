@@ -6,6 +6,7 @@ if (!file_exists($logPath)) {
     exit;
 }
 
+
 $conteudo = file_get_contents($logPath);
 $conteudoFormatado = nl2br(htmlspecialchars($conteudo));
 
