@@ -1,11 +1,20 @@
 # 🚗🌱 EcoRide – Plateforme de covoiturage 
 
-EcoRide est une application web développée dans le cadre de l’**Évaluation en Cours de Formation (ECF) – Titre Professionnel Développeur Front-end**.  
+**EcoRide** est une application web développée dans le cadre de l’**Évaluation en Cours de Formation (ECF) – Titre Professionnel Développeur Front-end**.  
 
-L’objectif principal est de promouvoir le covoiturage afin de :  
-- **Réduire l’impact environnemental** 🌍 en limitant le nombre de véhicules sur la route.  
-- **Proposer une alternative économique** 💶 aux déplacements individuels.  
-- **Favoriser la convivialité** 🤝 entre les usagers.
+Conçue dans une démarche écoresponsable, elle vise à **réinventer la mobilité** en proposant une alternative moderne, simple et fiable au transport individuel.  
+
+### 🌟 Notre vision
+EcoRide n’est pas seulement une plateforme de covoiturage : c’est un projet qui place **l’écologie, l’économie et l’humain** au cœur de chaque trajet.  
+
+### 🎯 Nos objectifs
+- 🌍 **Réduire l’empreinte environnementale** en diminuant le nombre de voitures en circulation.  
+- 💶 **Proposer une solution économique** et accessible à tous les usagers.  
+- 🤝 **Favoriser la convivialité et le partage** entre conducteurs et passagers.  
+
+### 🚀 Notre engagement
+À travers une interface intuitive et sécurisée, EcoRide combine **innovation technologique** et **responsabilité sociétale**, afin d’offrir une expérience de covoiturage durable et agréable.
+
 
 ## ⚙️ Déploiement en local
 
@@ -31,12 +40,12 @@ $dbname = "ecoride";
 $user = "root";
 $password = ""; // sous XAMPP par défaut
 
-###4) Lancement
+### 4) Lancement
 1)Démarrer Apache et MySQL dans XAMPP
 2)Ouvrir l’application : 👉 http://localhost/Ecoride/
 
 
-🔑 ###Comptes de test
+## 🔑 Comptes de test
 | Rôle           | Identifiant                                       | Mot de passe |
 | -------------- | ------------------------------------------------- | ------------ |
 | Administrateur | Joelsonrita6@gamil.com                            | Joelson123   |
@@ -44,23 +53,57 @@ $password = ""; // sous XAMPP par défaut
 | Utilisateur    | Joelsonrita07@gamil.com                           | Joelson@7    |
 
 
-###Déploiement en ligne
-👉 Lien vers l’application déployée
+## 🌍 Déploiement en ligne
+👉 [Lien vers l’application déployée](LIEN_HOSTINGER_ICI)
 
-📊 ###Gestion de projet
-Méthodologie : Agile / Kanban
-Outil utilisé : Trello
-👉 Lien vers le tableau Trello
+---
 
-🛠️ ###Dépannage (FAQ courte)
+## 📊 Gestion de projet
+- Méthodologie : **Agile / Kanban**  
+- Outil utilisé : **Trello**  
+👉 [Lien vers le tableau Trello](LIEN_TRELLO_ICI)
 
-Erreur “Table inconnue” → Importer correctement sql/ecoride.sql dans la base ecoride.
+---
 
-“Access denied” MySQL → Vérifier db.php (user/mot de passe).
+## 🌱 Workflow Git appliqué
 
-PDOException (driver) → Activer pdo_mysql dans php.ini puis redémarrer Apache.
+| Branche                | Rôle et utilisation                                                                 |
+|-------------------------|-------------------------------------------------------------------------------------|
+| **`main`**              | Branche principale → contient la version stable et livrable du projet.              |
+| **`dev`**               | Branche de développement → intégration et tests des fonctionnalités.                |
+| **`feature/...`**       | Branches dédiées à une fonctionnalité (ex: `feature/US3-recherche`). Après validation, elles sont mergées dans `dev`. |
 
-CSS/JS non chargés → Vérifier les chemins (<link>, <script>).
+✅ Une fois la branche `dev` testée et stable, elle est fusionnée dans `main` pour créer une version finale prête au déploiement.
+
+## 🛠️ Stack technique
+
+| Domaine              | Technologies utilisées                                                     |
+|----------------------|----------------------------------------------------------------------------|
+| **Front-end**        | HTML5, CSS3 (Bootstrap), JavaScript (DOM + Fetch API)                      |
+| **Back-end**         | PHP 8 avec PDO (sécurisation contre les injections SQL)                    |
+| **Base relationnelle** | MySQL (utilisateurs, trajets, véhicules, crédits)                        |
+| **Déploiement**      | Hostinger (serveur Apache + PHP + MySQL)                                   |
+| **Outils**           | Git (gestion de versions), Trello (gestion de projet en Kanban)            |
 
 
+## 🛠️ Dépannage (FAQ)
+
+| Problème                          | Solution                                                                 |
+|-----------------------------------|---------------------------------------------------------------------------|
+| ❌ **Erreur “Table inconnue”**     | Importer correctement `sql/ecoride.sql` dans la base **ecoride**.         |
+| 🔑 **“Access denied” MySQL**       | Vérifier le fichier `db.php` (utilisateur/mot de passe).                  |
+| ⚠️ **PDOException (driver)**       | Activer `pdo_mysql` dans `php.ini`, puis redémarrer Apache.               |
+| 🎨 **CSS/JS non chargés**          | Vérifier les chemins (`<link>`, `<script>`) dans les fichiers HTML/PHP.   |
+
+
+## 📌 Version finale
+
+✅ Projet livré avec :  
+- Code source (front-end & back-end)  
+- Script SQL (`sql/ecoride.sql`)  
+- Documentation utilisateur et technique  
+- Charte graphique + maquettes (desktop & mobile)  
+- Gestion de projet (Kanban Trello)  
+
+**Commit final : `EcoRide`**
 
