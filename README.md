@@ -52,6 +52,9 @@ $password = ""; // sous XAMPP par défaut
 | Employé        | Joelsonrita6@gamil.com                            | Joelson123   |
 | Utilisateur    | Joelsonrita07@gamil.com                           | Joelson@7    |
 
+## Accès administrateur
+- URL :(https://ecoride.icu/login_admin.html)
+
 
 ## 🌍 Déploiement en ligne
 👉 [Lien vers l’application déployée]((https://ecoride.icu))
