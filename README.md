@@ -54,14 +54,14 @@ $password = ""; // sous XAMPP par défaut
 
 
 ## 🌍 Déploiement en ligne
-👉 [Lien vers l’application déployée](LIEN_HOSTINGER_ICI)
+👉 [Lien vers l’application déployée]((https://ecoride.icu))
 
 ---
 
 ## 📊 Gestion de projet
 - Méthodologie : **Agile / Kanban**  
 - Outil utilisé : **Trello**  
-👉 [Lien vers le tableau Trello](LIEN_TRELLO_ICI)
+👉 [Lien vers le tableau Trello](https://trello.com/b/NFavOE9h)
 
 ---
 
